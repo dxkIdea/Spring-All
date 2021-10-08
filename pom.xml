@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.dxk.spring</groupId>
+    <artifactId>Spring-All</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <description>Spring全家桶使用案例及讲解。一定要持续实践！！！</description>
+
+    <modules>
+        <module>SpringBoot</module>
+        <module>SpringCloud</module>
+        <module>SpringCloudAlibaba</module>
+    </modules>
+
+    <!--SpringBoot parent 定义-->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>${spring-boot.version}</version>
+        <relativePath/>
+    </parent>
+
+    <!--以下各个API的版本基本都是最新的-2021年10月8日11:10:23-->
+    <properties>
+        <!--JDK版本-->
+        <java.version>8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <!--字符集-->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!--Spring Boot版本-->
+        <spring-boot.version>2.5.5</spring-boot.version>
+        <!--Spring Cloud版本-->
+        <spring-cloud.version>2020.0.4</spring-cloud.version>
+        <!--spring-cloud-bootstrap-->
+        <spring-cloud-bootstrap>3.0.3</spring-cloud-bootstrap>
+        <!--Spring Cloud Alibaba版本-->
+        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+        <!--FastJson版本号-->
+        <fastJson-version>1.2.76</fastJson-version>
+        <!--lombok版本号-->
+        <lombok-version>1.18.22</lombok-version>
+        <!--junit版本号-->
+        <junit-version>4.13.2</junit-version>
+        <!--mysql驱动-8.0.26引入失败-->
+        <jdbc-mysql.version>8.0.22</jdbc-mysql.version>
+        <!--druid连接池-->
+        <Druid.version>1.1.21</Druid.version>
+        <!--HikariCP连接池 最新版本 5.0.0引入失败-->
+        <HikariCP.version>4.0.3</HikariCP.version>
+        <!--mybatis-plus-boot-starter-->
+        <mybatis-plus.version>3.4.3</mybatis-plus.version>
+        <!--spring-boot-starter-data-redis-->
+        <redis.version>2.5.0</redis.version>
+        <!--redisson-spring-boot-starter-->
+        <redisson.version>3.16.0</redisson.version>
+        <!--json-->
+        <gson.version>2.6.2</gson.version>
+        <!--工具类-->
+        <hutool.version>5.7.13</hutool.version>
+        <!--JWT-->
+        <jwt.version>0.9.1</jwt.version>
+        <!--Guava-->
+        <guava.version>31.0.1-jre</guava.version>
+        <!--springfox-swagger2-->
+        <swagger.version>3.0.0</swagger.version>
+    </properties>
+
+    <!--管理SpringBoot、SpringCloud、SpringCloud-Alibaba的版本管理-->
+    <dependencyManagement>
+        <dependencies>
+            <!--SpringBoot-starter依赖版本-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--SpringCloud依赖版本-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--SpringCloud-Alibaba依赖版本管理-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--2020版本以后，添加spring-cloud-context是没有用的，因为官方重构了bootstrap引导配置的加载方式-->
+            <!--Fucking this  找了半天。。-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-bootstrap</artifactId>
+                <version>${spring-cloud-bootstrap}</version>
+            </dependency>
+            <!-- MySql -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${jdbc-mysql.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <!-- 数据库连接池 -->
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>${HikariCP.version}</version>
+            </dependency>
+            <!-- MyBatis  -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!-- Jedis -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+                <version>${redis.version}</version>
+            </dependency>
+            <!-- JSON -->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastJson-version}</version>
+            </dependency>
+            <!-- Redisson -->
+            <!--<dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>3.13.6</version>
+            </dependency>-->
+            <!-- JWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+            <!--swagger-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!--阿里云镜像-->
+    <repositories>
+        <repository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!--spring-boot-maven 插件-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
