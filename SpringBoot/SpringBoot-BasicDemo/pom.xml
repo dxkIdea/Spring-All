@@ -3,24 +3,25 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>Spring-All</artifactId>
+        <artifactId>SpringBoot</artifactId>
         <groupId>com.dxk.spring</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>SpringBoot</artifactId>
-    <packaging>pom</packaging>
-    <description>SpringBoot基础案例及集成各种中间件案例</description>
-
-    <modules>
-        <module>SpringBoot-BasicDemo</module>
-    </modules>
+    <artifactId>SpringBoot-BasicDemo</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <!--Spring+SpringMVC-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

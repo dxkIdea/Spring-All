@@ -11,10 +11,10 @@
     <description>Spring全家桶使用案例及讲解。一定要持续实践！！！</description>
 
     <modules>
+        <module>Spring</module>
         <module>SpringBoot</module>
         <module>SpringCloud</module>
         <module>SpringCloudAlibaba</module>
-        <module>Spring</module>
     </modules>
 
     <!--SpringBoot parent 定义-->
@@ -162,6 +162,17 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+    </dependencies>
 
     <!--阿里云镜像-->
     <repositories>
