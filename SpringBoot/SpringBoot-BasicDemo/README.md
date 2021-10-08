@@ -1,5 +1,5 @@
-#Spring Boot基本教程
-##Spring Boot简介
+# Spring Boot基本教程
+## Spring Boot简介
 + 官方
 ~~~
 Spring Boot makes it easy to create stand-alone, production-grade Spring based Applications that you can "just run".
@@ -17,7 +17,7 @@ SpringBoot可以轻松创建独立的、生产级的、基于Spring的应用程�
 + 开发Spring Boot的主要动机是简化配置和部署spring应用程序的过程。
 + Spring Boot的核心就是Spring。 
 ~~~
-##Spring Boot优点
+## Spring Boot优点
 ~~~
 + 减少了大量的开发时间并提高了生产力。
 + 避免了编写大量的样板代码，注释和XML配置。
@@ -28,7 +28,7 @@ SpringBoot可以轻松创建独立的、生产级的、基于Spring的应用程�
 + 提供了许多插件来开发和测试Spring启动应用程序非常容易使用构建工具，如Maven和Gradle。
 + 提供了许多插件，以便与嵌入式和内存数据库工作非常容易。
 ~~~
-##Spring Boot工程创建
+## Spring Boot工程创建
 + 创建Maven工程
 + pom文件引入Spring Boot 父（parent）依赖
 ~~~
@@ -46,5 +46,5 @@ spring-boot-starter-test
 spring-boot-starter-thymeleaf
 ~~~
 
-##Spring Boot目录结构
+## Spring Boot目录结构
 ![img.png](directory structure.png)
