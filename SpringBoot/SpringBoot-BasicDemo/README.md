@@ -47,4 +47,4 @@ spring-boot-starter-thymeleaf
 ~~~
 
 ## Spring Boot目录结构
-![img.png](directory structure.png)
+![img.png](https://github.com/dxkIdea/Spring-All/blob/master/SpringBoot/SpringBoot-BasicDemo/directory%20structure.png)
