@@ -50,8 +50,6 @@
         <junit-version>4.13.2</junit-version>
         <!--mysql驱动-8.0.26引入失败-->
         <jdbc-mysql.version>8.0.22</jdbc-mysql.version>
-        <!--druid连接池-->
-        <Druid.version>1.1.21</Druid.version>
         <!--HikariCP连接池 最新版本 5.0.0引入失败-->
         <HikariCP.version>4.0.3</HikariCP.version>
         <!--mybatis-plus-boot-starter-->

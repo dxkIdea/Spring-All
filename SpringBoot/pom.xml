@@ -16,6 +16,7 @@
 
     <modules>
         <module>SpringBoot-BasicDemo</module>
+        <module>SpringBoot-MybatisPlus</module>
     </modules>
 
     <properties>

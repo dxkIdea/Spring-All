@@ -1,0 +1,29 @@
+#服务端口号（默认8080）
+server:
+  port: 8082
+
+spring:
+  #应用名称
+  application:
+    name: spring-mybatis-plus
+   #数据源连接信息
+  datasource:
+    #驱动类
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #数据源类型，本次使用hikari
+    type: com.zaxxer.hikari.HikariDataSource
+    #连接信息
+    url:  jdbc:mysql://localhost:3306/test?useSSL=false&useUnicode=true&characterEncoding=utf-8&autoReconnect=true&serverTimezone=Asia/Shanghai
+    #用户名、密码
+    username: root
+    password: 123456
+    #数据库连接池属性
+    hikari:
+      minimum-idle: 5
+      idle-timeout: 600000
+      maximum-pool-size: 10
+      auto-commit: true
+      pool-name: MyHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
