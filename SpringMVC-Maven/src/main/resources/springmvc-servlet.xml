@@ -9,10 +9,14 @@
         http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.2.xsd">
-    <!--创建容器时要扫码的包-->
-    <context:component-scan base-package="com.dxk.springmvc.maven.controller"></context:component-scan>
     <!--开启注解启动-->
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven/>
+    <context:annotation-config />
+
+    <!--创建容器时要扫码的包-->
+    <context:component-scan base-package="com.dxk.springmvc.maven.controller"/>
+
+
     <!--配置视图解析器-->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/page/"></property>
