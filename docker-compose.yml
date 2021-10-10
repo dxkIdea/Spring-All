@@ -1,0 +1,174 @@
+version: '3.1'
+services:
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    ports:
+    - 8080:80
+    - 80:80
+    - 443:443
+#####################################################
+  mysql-8:
+    image: mysql
+    container_name: mysql-8
+    restart: always
+    command:
+      # 将mysql8.0默认密码策略 修改为 原先 策略 (mysql8.0对其默认策略做了更改 会导致密码无法匹配)
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+    environment:
+      # 时区上海
+      TZ: Asia/Shanghai
+      # 初始化数据库(后续的初始化sql会在这个库执行)
+      MYSQL_DATABASE: nacos_config
+      # root用户的密码
+      MYSQL_ROOT_PASSWORD: 123456
+      # 创建新用户
+      MYSQL_USER: nacos
+      # 新用户的密码
+      MYSQL_PASSWORD: 123456
+    ports:
+    - 3306:3306
+    volumes:
+      - E:\IT\docker Volumes\mysql8\data:/var/lib/mysql
+      - E:\IT\docker Volumes\mysql8\conf:/etc/mysql/conf.d
+      - E:\IT\docker Volumes\mysql8\logs:/logs
+#注意：
+# 比如想给用户nacos赋予数据库test所有的表的权限并且不限制nacos用户的连接地址，代码如下
+#    进入容器，mysql -u root -p
+#    grant all privileges on nacos_config.* to 'nacos'@'%';
+#    # 刷新权限
+#    flush privileges;
+########################################################
+  nacos-2:
+    image: nacos/nacos-server:2.0.1
+    container_name: nacos-2.0
+    ports:
+    - 8848:8848
+    environment:
+      JVM_XMS: 256m
+      JVM_XMX: 256m
+      MODE: standalone
+      SPRING_DATASOURCE_PLATFORM: mysql
+      MYSQL_SERVICE_HOST: 192.168.2.21
+      MYSQL_MASTER_SERVICE_HOST: 192.168.2.21
+      #MYSQL_SERVICE_PORT: 3306
+      MYSQL_MASTER_SERVICE_PORT: 3306
+      #MYSQL_SERVICE_DB_NAME: nacos-config
+      MYSQL_MASTER_SERVICE_DB_NAME: nacos-config
+      #MYSQL_SERVICE_USER: nacos
+      MYSQL_MASTER_SERVICE_USER: nacos
+      #MYSQL_SERVICE_PASSWORD: 123456
+      MYSQL_MASTER_SERVICE_PASSWORD: 123456
+      MYSQL_DATABASE_NUM: 1
+#    volumes:
+#      - D:\SoftWare\IT\IT Environment\docker\volumes\nacos\conf:/home/nacos/conf
+#      - D:\SoftWare\IT\IT Environment\docker\volumes\nacos\logs:/home/nacos/logs
+#      - D:\SoftWare\IT\IT Environment\docker\volumes\nacos\data:/home/nacos/data
+    depends_on:
+      - mysql-8
+    restart: always
+
+#注意：
+#进入容器修改application.properties参数
+#db.url.0=jdbc:mysql://192.168.2.21:3306/nacos_config?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true
+#db.user=用户名
+#db.password=密码
+##########################################################
+  redis-master:
+    image: redis
+    container_name: redis-master-6381
+    environment:
+      compose_project_name: redis-master-6381
+    ports:
+      - 6381:6379
+    #访问密码、副本同步密码
+    command: redis-server --requirepass 123456 --masterauth 123456
+    restart: always
+  redis-slave:
+    image: redis
+    container_name: redis-slave-6382
+    environment:
+      compose_project_name: redis-slave-6382
+    ports:
+      - 6382:6379
+    #同步命名 待确认
+    command: redis-server --slaveof redis-master-6381 6381 --requirepass 123456 --masterauth 123456
+    restart: always
+#  redis-sentinel:
+#    image: redis
+#    container_name: sentinel-26379
+#    ports:
+#      - 26379:26379
+#    command: redis-sentinel /usr/local/etc/redis/sentinel.conf
+#    volumes:
+#      - D:\SoftWare\IT\IT Environment\docker\volumes\redis\sentinel\conf\sentinel.conf:/usr/local/etc/redis/sentinel.conf
+  #################################################################
+  RabbitMQ:
+    image: rabbitmq:3.7.8-management
+    container_name: rabbitmq
+    hostname: localhost
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=root
+      - RABBITMQ_ERLANG_COOKIE=CURIOAPPLICATION
+    restart: always
+  ################################################################
+  alibaba-sentinel:
+    image: bladex/sentinel-dashboard
+    container_name: alibaba-sentinel
+    hostname: localhost
+    ports:
+      - 8858:8858
+    environment:
+      # 用于指定控制台的登录用户名为 sentinel
+      - Dsentinel.dashboard.auth.username=sentinel
+      # 用于指定控制台的登录密码为 123456
+      - Dsentinel.dashboard.auth.password=123456
+    restart: always
+  ########################################################
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - TZ=Asia/Shanghai
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123
+  #################################################
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 27018:27018
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=123
+    links:
+      - mongodb:mongo
+  ################################################
+  sentinel:
+    image: bladex/sentinel-dashboard
+    container_name: sentinel
+    environment:
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS= -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dsentinel.dashboard.auth.username=sentinel -Dsentinel.dashboard.auth.password=sentinel -Dserver.servlet.session.timeout=7200
+    ports:
+      - 8088:8080
+    restart: always
+
+#networks:
+#  default:
+#    external:
+#      name: network_bridge
+
+
