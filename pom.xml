@@ -11,7 +11,7 @@
     <description>Spring全家桶使用案例及讲解。一定要持续实践！！！</description>
 
     <modules>
-        <module>Spring</module>
+        <module>SpringMVC-Maven</module>
         <module>SpringBoot</module>
         <module>SpringCloud</module>
         <module>SpringCloudAlibaba</module>
