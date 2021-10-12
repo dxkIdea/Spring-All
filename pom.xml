@@ -54,6 +54,8 @@
         <HikariCP.version>4.0.3</HikariCP.version>
         <!--mybatis-plus-boot-starter-->
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
+        <!--mybatis-plus-boot-starter-->
+        <dynamic-datasource.version>3.4.1</dynamic-datasource.version>
         <!--spring-boot-starter-data-redis-->
         <redis.version>2.5.0</redis.version>
         <!--redisson-spring-boot-starter-->
@@ -122,6 +124,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-datasource.version}</version>
             </dependency>
             <!-- Jedis -->
             <dependency>

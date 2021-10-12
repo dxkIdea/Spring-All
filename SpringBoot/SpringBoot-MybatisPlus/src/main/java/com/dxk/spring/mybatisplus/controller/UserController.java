@@ -1,5 +1,7 @@
 package com.dxk.spring.mybatisplus.controller;
 
+import com.dxk.spring.mybatisplus.domain.User;
+import com.dxk.spring.mybatisplus.mapper.UserMapper;
 import com.dxk.spring.mybatisplus.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
     @Autowired
-    private IUserService userService;
+    private IUserService<User> userService;
+    @Autowired
+    private UserMapper userMapper;
 
    /**
     * @Description: 获取所有用户信息
@@ -22,6 +26,6 @@ public class UserController {
     */
     @GetMapping(value = "/all/users")
     public String getAllUsers() {
-        return userService.getAllUsers().toString();
+        return userService.list(null).toString();
     }
 }
