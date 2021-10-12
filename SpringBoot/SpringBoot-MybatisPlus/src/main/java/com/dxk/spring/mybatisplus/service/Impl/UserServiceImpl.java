@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
+//指定数据源
 @DS("master")
 public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements IUserService<User> {
 
